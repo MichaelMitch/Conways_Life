@@ -1,6 +1,5 @@
 var size = 10
-
-
+var iterations = 50
 
 
 
@@ -8,18 +7,25 @@ function main () {
 
   displayBoard(board)
   var board = createBoard(size)
-    for (var row = 0; row < size; row++) {
-      for (var colPoint = 0; colPoint < size; colPoint++) {
-        var neighourCount = countAliveNeighbours(row, colPoint, board)
-        if (board[row][colPoint] === 1){
-          if (board[row][colPoint] < 2){}
-          if (board[row][colPoint] === 2 ||){}
-          if (board[row][colPoint] === 1){}
-          
+  var newBoard = createBoard(size)
+  for(i=0; i<size; i++){
+      for (var row = 0; row < size; row++) {
+        for (var colPoint = 0; colPoint < size; colPoint++) {
+          var neighourCount = countAliveNeighbours(row, colPoint, board)
+          if (board[row][colPoint] === 1){
+            if (neighourCount < 2){newBoard[row][colPoint] = 0
+            }
+            if (nei > 3){newBoard[row][colPoint] = 0
+            }
+          }
+          if (board[row][colPoint] === 0 && neighbourCount === 3){newBoard[row][colPoint] = 1
+          }
+        }
       }
+      board = newBoard
     }
   }
-}
+
 
 
 
@@ -102,6 +108,6 @@ function ifOnEdge(edgeStatus)
       break
   }
   boundsArr.pop(northBound, southBound, eastBound, westBound)
-}
+
 main()
 
