@@ -1,11 +1,12 @@
 var size = 10
-var iterations = 50
-
+var iterations = 2
 function main () {
   var board = createBoard(size)
+  board = dataPoints(board)
   var newBoard = createBoard(size)
   displayBoard(board)
   for (var i = 0; i < iterations; i++) {
+    displayBoard(board)
     for (var row = 0; row < size; row++) {
       for (var colPoint = 0; colPoint < size; colPoint++) {
         var neighourCount = countAliveNeighbours(row, colPoint, board)
@@ -40,6 +41,9 @@ function displayBoard (board) {
   for (var i in board) {
     console.log(board[i] + '\n')
   }
+  console.log('\n')
+  console.log('\n')
+
 }
 function countAliveNeighbours (row, colPoint, board) {
   var neighbourCount = 0
@@ -52,15 +56,22 @@ function countAliveNeighbours (row, colPoint, board) {
   return neighbourCount
 }
 function isOnEdge (row, colPoint, board) {
-  if (board[-1][0] === undefined && board[0][-1] === undefined) { return 'northWest' }
-  if (board[-1][0] === undefined && board[board.length + 1][0] === undefined) { return 'northEast' }
-  if (board[board.length + 1][0] === undefined && board[0][-1] === undefined) { return 'southWest' }
-  if (board[board.length + 1][0] === undefined && board[board.length + 1][0] === undefined) { return 'southEast' }
+  if (row - 1 < 0 && colPoint - 1 < 0) { return 'northWest' }
+  if (row - 1 < 0 && colPoint + 1 > board.length) { return 'northEast' }
+  if (row + 1 > board.length && colPoint - 1 < 0) { return 'southWest' }
+  if (row + 1 > board.length && colPoint + 1 > board.length) { return 'southEast' }
 
-  if (board[-1][0] === undefined) { return 'north' }
-  if (board[board.length + 1][0] === undefined) { return 'south' }
-  if (board[0][-1] === undefined) { return 'west' }
-  if (board[board.length + 1][0] === undefined) { return 'east' }
+  if (row - 1 < 0) { return 'north' }
+  if (row + 1 > board.length) { return 'south' }
+  if (colPoint - 1 < 0) { return 'west' }
+  if (colPoint + 1 > board.length) { return 'east' }
+}
+function dataPoints (board) {
+  board[5][5] = 1
+  board[6][5] = 1
+  board[5][4] = 1
+  board[4][6] = 1
+  return board
 }
 
 function ifOnEdge (edgeStatus) {
@@ -99,6 +110,10 @@ function ifOnEdge (edgeStatus) {
       northBound = northBound + 1
       break
   }
-  boundsArr.pop(northBound, southBound, eastBound, westBound)
+  boundsArr.push(northBound)
+  boundsArr.push(southBound)
+  boundsArr.push(eastBound)
+  boundsArr.push(westBound)
+  return boundsArr
 }
 main()
