@@ -1,9 +1,11 @@
-var size = 6
-var iterations = 10
+var pause = require('pause-js')
+var clear = require('clear')
+function main () {
+  var size = 20
+  var iterations = 100000
   var board = createBoard(size)
   board = dataPoints(board)
   var newBoard = createBoard(size)
-function main () {
   for (var i = 0; i < iterations; i++) {
     var newBoard = createBoard(size)
     for (var row = 0; row < size; row++) {
@@ -41,6 +43,8 @@ function displayBoard (board) {
   }
   console.log('\n')
   console.log('\n')
+  pause.seconds(0.5)
+  clear()
 }
 function countAliveNeighbours (row, colPoint, board) {
   var neighbourCount = 0
@@ -65,12 +69,11 @@ function isOnEdge (row, colPoint, board) {
   if (colPoint + 1 === board.length) { return 'east' }
 }
 function dataPoints (board) {
-  board[2][2] = 1
-  board[2][3] = 1
-  board[2][4] = 1
-  board[3][1] = 1
-  board[3][2] = 1
-  board[3][3] = 1
+  board[0][0] = 1
+  board[1][1] = 1
+  board[1][2] = 1
+  board[2][0] = 1
+  board[2][1] = 1
   return board
 }
 

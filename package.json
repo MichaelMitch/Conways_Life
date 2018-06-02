@@ -1,0 +1,12 @@
+{
+  "name": "Conways_Life",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MichaelMitch/Conways_Life.git",
+  "author": "--unset-all <--unset-all>",
+  "license": "MIT",
+  "dependencies": {
+    "clear": "^0.1.0",
+    "pause-js": "^1.0.6"
+  }
+}
