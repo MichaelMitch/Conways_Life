@@ -1,28 +1,27 @@
-var size = 10
-var iterations = 2
+var size = 3
+var iterations = 4
+var board = createBoard(size)
+board = dataPoints(board)
+var newBoard = createBoard(size)
 function main () {
-  var board = createBoard(size)
-  board = dataPoints(board)
-  var newBoard = createBoard(size)
-  displayBoard(board)
+
   for (var i = 0; i < iterations; i++) {
-    displayBoard(board)
     for (var row = 0; row < size; row++) {
       for (var colPoint = 0; colPoint < size; colPoint++) {
         var neighourCount = countAliveNeighbours(row, colPoint, board)
         if (board[row][colPoint] === 1) {
           if (neighourCount < 2) {
             newBoard[row][colPoint] = 0
-          }
-          if (neighourCount > 3) {
+          } else if (neighourCount > 3) {
             newBoard[row][colPoint] = 0
-          }
-        }
-        if (board[row][colPoint] === 0 && neighourCount === 3) {
+          } else newBoard[row][colPoint] = 1
+        } else if (neighourCount === 3) {
           newBoard[row][colPoint] = 1
         }
       }
     }
+    displayBoard(board)
+    displayBoard(newBoard)
     board = newBoard
   }
 }
@@ -43,34 +42,34 @@ function displayBoard (board) {
   }
   console.log('\n')
   console.log('\n')
-
 }
 function countAliveNeighbours (row, colPoint, board) {
   var neighbourCount = 0
   var boundsArr = ifOnEdge(isOnEdge(row, colPoint, board))
   for (var i = boundsArr[0]; i < boundsArr[1]; i++) {
-    for (var j = boundsArr[2]; j < boundsArr[3]; j++) {
-      if (board[i][j] === 1) { neighbourCount = neighbourCount + 1 }
+    for (var j = boundsArr[3]; j < boundsArr[2]; j++) {
+      if (i === 0 && j === 0 && board[row + i][colPoint + j] === 1) { neighbourCount = neighbourCount - 1 }
+      if (board[row + i][colPoint + j] === 1) { neighbourCount = neighbourCount + 1 }
     }
   }
   return neighbourCount
 }
 function isOnEdge (row, colPoint, board) {
   if (row - 1 < 0 && colPoint - 1 < 0) { return 'northWest' }
-  if (row - 1 < 0 && colPoint + 1 > board.length) { return 'northEast' }
+  if (row - 1 < 0 && colPoint + 1 === board.length) { return 'northEast' }
   if (row + 1 > board.length && colPoint - 1 < 0) { return 'southWest' }
-  if (row + 1 > board.length && colPoint + 1 > board.length) { return 'southEast' }
+  if (row + 1 > board.length && colPoint + 1 === board.length) { return 'southEast' }
 
   if (row - 1 < 0) { return 'north' }
-  if (row + 1 > board.length) { return 'south' }
+  if (row + 1 === board.length) { return 'south' }
   if (colPoint - 1 < 0) { return 'west' }
-  if (colPoint + 1 > board.length) { return 'east' }
+  if (colPoint + 1 === board.length) { return 'east' }
 }
 function dataPoints (board) {
-  board[5][5] = 1
-  board[6][5] = 1
-  board[5][4] = 1
-  board[4][6] = 1
+  board[1][0] = 1
+  board[1][1] = 1
+  board[1][2] = 1
+
   return board
 }
 
