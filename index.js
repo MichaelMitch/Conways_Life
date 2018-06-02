@@ -1,11 +1,11 @@
-var size = 3
-var iterations = 4
-var board = createBoard(size)
-board = dataPoints(board)
-var newBoard = createBoard(size)
+var size = 6
+var iterations = 10
+  var board = createBoard(size)
+  board = dataPoints(board)
+  var newBoard = createBoard(size)
 function main () {
-
   for (var i = 0; i < iterations; i++) {
+    var newBoard = createBoard(size)
     for (var row = 0; row < size; row++) {
       for (var colPoint = 0; colPoint < size; colPoint++) {
         var neighourCount = countAliveNeighbours(row, colPoint, board)
@@ -21,7 +21,6 @@ function main () {
       }
     }
     displayBoard(board)
-    displayBoard(newBoard)
     board = newBoard
   }
 }
@@ -66,10 +65,12 @@ function isOnEdge (row, colPoint, board) {
   if (colPoint + 1 === board.length) { return 'east' }
 }
 function dataPoints (board) {
-  board[1][0] = 1
-  board[1][1] = 1
-  board[1][2] = 1
-
+  board[2][2] = 1
+  board[2][3] = 1
+  board[2][4] = 1
+  board[3][1] = 1
+  board[3][2] = 1
+  board[3][3] = 1
   return board
 }
 
